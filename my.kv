@@ -1,0 +1,310 @@
+
+<CreateAccountWindow>:
+    name: "create"
+
+    namee: namee
+    email: email
+    password: passw
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+            size: root.width, root.height/2
+
+            Label:
+                text: "Create an Account"
+                size_hint: 0.8, 0.2
+                pos_hint: {"x":0.1, "top":1}
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.8}
+                text: "Name: "
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            TextInput:
+                pos_hint: {"x":0.5, "top":0.8}
+                size_hint: 0.4, 0.12
+                id: namee
+                multiline: False
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.8-0.13}
+                text: "Email: "
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            TextInput:
+                pos_hint: {"x":0.5, "top":0.8-0.13}
+                size_hint: 0.4, 0.12
+                id: email
+                multiline: False
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.8-0.13*2}
+                text: "Password: "
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+            TextInput:
+                pos_hint: {"x":0.5, "top":0.8-0.13*2}
+                size_hint: 0.4, 0.12
+                id: passw
+                multiline: False
+                password: True
+                font_size: (root.width**2 + root.height**2) / 14**4
+
+        Button:
+            pos_hint:{"x":0.3,"y":0.25}
+            size_hint: 0.4, 0.1
+            font_size: (root.width**2 + root.height**2) / 17**4
+            text: "Already have an Account? Log In"
+            on_release:
+                root.manager.transition.direction = "left"
+                root.login()
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.15
+            text: "Submit"
+            font_size: (root.width**2 + root.height**2) / 14**4
+            on_release:
+                root.manager.transition.direction = "left"
+                root.submit()
+
+
+<LoginWindow>:
+    name: "login"
+
+    email: email
+    password: password
+
+    FloatLayout:
+
+        Label:
+            text:"Email: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.1, "top":0.9}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: email
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            pos_hint: {"x": 0.45 , "top":0.9}
+            size_hint: 0.4, 0.15
+
+        Label:
+            text:"Password: "
+            font_size: (root.width**2 + root.height**2) / 13**4
+            pos_hint: {"x":0.1, "top":0.7}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: password
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            password: True
+            pos_hint: {"x": 0.45, "top":0.7}
+            size_hint: 0.4, 0.15
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Login"
+            on_release:
+                root.manager.transition.direction = "up"
+                root.loginBtn()
+
+        Button:
+            pos_hint:{"x":0.3,"y":0.3}
+            size_hint: 0.4, 0.1
+            font_size: (root.width**2 + root.height**2) / 17**4
+            text: "Don't have an Account? Create One"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.createBtn()
+
+
+<MainWindow>:
+    name: "main"
+    lucky_num : lucky_num
+
+    FloatLayout:
+        Label:
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+            text: "This is where the product will be displayed"
+
+        Label:
+            pos_hint:{"x": 0.1, "top":0.7}
+            size_hint:0.8, 0.2
+            text: "Please, enter your lucky number"
+
+        TextInput:
+            id: lucky_num
+            font_size: (root.width**2 + root.height**2) / 13**4
+            multiline: False
+            pos_hint: {"x": 0.4 , "top":0.5}
+            size_hint: 0.2, 0.2
+
+        Button:
+            pos_hint:{"x":0.5, "y": 0.1}
+            size_hint:0.3,0.1
+            text: "send"
+            on_press:
+                root.manager.transition.direction = "down"
+                root.submit_number()
+
+        Button:
+            pos_hint:{"x":0.2, "y": 0.1}
+            size_hint:0.3,0.1
+            text: "Choose it randomly"
+            on_release:
+                app.root.current = "first"
+                root.manager.transition.direction = "down"
+
+
+<NumberDisplayed>:
+    name: "number"
+
+    FloatLayout:
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Pay"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "payment"
+
+<BlinkingButton@Button>:
+    text: "Animate me"
+    animated_color: (1,6,1,0.3)
+    blink_size: 0
+    canvas.before:
+        Color:
+            rgba: self.animated_color
+        Rectangle:
+            size: self.blink_size, self.blink_size
+            pos: self.pos[0] + self.size[0]/2. - self.blink_size/2., self.pos[1] + self.size[1]/2. - self.blink_size/2.
+
+<FirstPage>:
+    name: "first"
+
+    FloatLayout:
+
+        Label:
+            pos_hint:{"x": 0.1, "top":0.8}
+            size_hint:0.8, 0.2
+            text: "Click on the number to find your lucky one!"
+
+        Button:
+            id: menu
+            pos_hint:{"x":0.85,"y":0.85}
+            size_hint: 0.115, 0.115
+            font_size: (root.width**2 + root.height**2) / 15**4
+            background_color: 0,0,0,0
+            on_release:
+                root.manager.transition.direction = "up"
+                app.root.current = "login"
+
+            Image:
+                source: '/home/michel/Raffles_website_project/menu_icon.png'
+                center_x: self.parent.center_x
+                center_y:self.parent.center_y
+                size_hint: 0.05, 0.05
+
+        BlinkingButton:
+            id: fp_button
+            pos_hint:{"x":0.4,"y":0.4}
+            size_hint: 0.20, 0.25
+            font_size: (root.width**2 + root.height**2) / 11**4
+            text: ""
+            background_color: 1,6,1,0.3
+
+            on_release:
+                root.press()
+                root.animate_button(self)
+
+
+
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.1}
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Check Out"
+            on_press:
+                root.manager.transition.direction = "down"
+                root.submit_randomnumber()
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "payment"
+
+        Button:
+            pos_hint:{"x":0.5,"y":0.1}
+            size_hint: 0.3, 0.1
+            font_size: (root.width**2 + root.height**2) / 15**4
+            text: "Choose my number"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "main"
+
+
+<RoundedButton@Button>
+    background_color: (0,0,0,0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba:(48/255,84/255,150/255,1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [70]
+
+
+<PaymentMethod>:
+    name: "payment"
+
+    FloatLayout:
+
+        Label:
+            pos_hint:{"x": 0.1, "top":0.8}
+            size_hint:0.8, 0.2
+            text: "Click on the button to pay!"
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Go"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "thankyou"
+
+
+<ThankYou>:
+    name: "thankyou"
+
+    FloatLayout:
+
+        Label:
+            pos_hint:{"x": 0.1, "top":0.8}
+            size_hint:0.8, 0.2
+            text: "Thank You!"
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.05}
+            size_hint: 0.6, 0.2
+            font_size: (root.width**2 + root.height**2) / 13**4
+            text: "Go to main"
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "main"
